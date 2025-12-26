@@ -1,37 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-@import "tailwindcss";
-
-@theme {
-  --color-background: 222 47% 6%;
-  --color-foreground: 210 40% 98%;
-  --color-card: 222 47% 8%;
-  --color-card-foreground: 210 40% 98%;
-  --color-popover: 222 47% 8%;
-  --color-popover-foreground: 210 40% 98%;
-  --color-primary: 199 89% 48%;
-  --color-primary-foreground: 222 47% 6%;
-  --color-secondary: 217 33% 17%;
-  --color-secondary-foreground: 210 40% 98%;
-  --color-muted: 217 33% 14%;
-  --color-muted-foreground: 215 20% 55%;
-  --color-accent: 199 89% 48%;
-  --color-accent-foreground: 222 47% 6%;
-  --color-destructive: 0 84% 60%;
-  --color-destructive-foreground: 210 40% 98%;
-  --color-success: 142 71% 45%;
-  --color-success-foreground: 222 47% 6%;
-  --color-warning: 38 92% 50%;
-  --color-warning-foreground: 222 47% 6%;
-  --color-border: 217 33% 17%;
-  --color-input: 217 33% 17%;
-  --color-ring: 199 89% 48%;
-  
-  --radius: 0.75rem;
-  
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-display: 'Space Grotesk', sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: 222 47% 6%;
@@ -82,15 +53,12 @@
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    @apply border-border;
   }
 
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    @apply bg-background text-foreground font-display antialiased;
     font-family: var(--font-display);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   .font-mono {
@@ -100,11 +68,7 @@
 
 @layer components {
   .glass-card {
-    background-color: hsl(var(--card) / 0.8);
-    backdrop-filter: blur(24px);
-    border: 1px solid hsl(var(--border) / 0.5);
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 rounded-xl shadow-lg;
     background: var(--gradient-card);
   }
 
