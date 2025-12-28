@@ -13,6 +13,8 @@ export const config = createConfig(
     appDescription: 'Decentralized Point-of-Sale System on Base',
     appUrl: typeof window !== 'undefined' ? window.location.origin : '',
     appIcon: '/favicon.ico',
+    // Disable unnecessary connectors to reduce console warnings
+    ssr: false,
   })
 );
 
