@@ -1,15 +1,25 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { Home, Search, AlertCircle, ArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Home, Search, AlertCircle, ArrowLeft, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [countdown, setCountdown] = useState(10);
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      navigate("/");
+    }
+  }, [countdown, navigate]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-background to-muted/30 p-4">
@@ -64,6 +74,16 @@ const NotFound = () => {
           </Button>
         </div>
 
+        {/* Auto Redirect Timer */}
+        <div className="p-3 sm:p-4 rounded-lg bg-primary/10 border border-primary/20">
+          <div className="flex items-center justify-center gap-2 text-sm sm:text-base text-primary">
+            <Clock className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+            <span className="font-medium">
+              Auto-redirecting to home in <span className="font-bold text-lg">{countdown}</span> seconds
+            </span>
+          </div>
+        </div>
+
         {/* Additional Help */}
         <div className="pt-4 sm:pt-6 border-t border-border">
           <p className="text-xs sm:text-sm text-muted-foreground mb-3">
@@ -95,6 +115,11 @@ const NotFound = () => {
               Admin Panel
             </Button>
           </div>
+        </div>
+
+        {/* Footer */}
+        <div className="pt-6 text-center">
+          <p className="text-xs text-muted-foreground">© 2026 BasePOS - All rights reserved</p>
         </div>
       </div>
     </div>
